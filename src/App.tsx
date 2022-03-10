@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FcCancel } from "react-icons/fc";
 import { v4 } from "uuid";
 
+import { user } from "./models/user";
+
 import {
   Container,
   Form,
@@ -13,7 +15,7 @@ import {
   Table,
 } from "reactstrap";
 
-const userRemoveReducer = (state, action) => {
+const userRemoveReducer = (state:user[], action:any):user[] => {
   console.log(state);
   if (action.type === "ADD_USER") {
     return [
@@ -36,9 +38,9 @@ const userRemoveReducer = (state, action) => {
 };
 
 function App() {
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
-  const [email, setemail] = useState("");
+  const [first, setFirst] = useState<string>("");
+  const [last, setLast] = useState<string>("");
+  const [email, setemail] = useState<string>("");
 
   const [newUserList, dispatchUser] = useReducer(userRemoveReducer, []);
 
@@ -53,11 +55,11 @@ function App() {
     localStorage.setItem("users", JSON.stringify(newUserList));
   }, [newUserList]);
 
-  const handledelete = (id) => {
+  const handledelete = (id:any) => {
     dispatchUser({ type: "REMOVE_USER", payload: id });
   };
 
-  const handlesubmit = async (e) => {
+  const handlesubmit = async (e:React.FormEvent) => {
     e.preventDefault();
 
     if (!first && !last && !email) {
